@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - include:
+      file: ../changes/create_users_table.sql
+      relativeToChangelogFile: true
+
+  - include:
+      file: ../changes/add_column_to_users_table.sql
+      relativeToChangelogFile: true
+
+  - include:
+      file: ../changes/add_default_value_for_password.sql
+      relativeToChangelogFile: true
