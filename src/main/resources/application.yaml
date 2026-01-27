@@ -9,6 +9,12 @@ spring:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
 
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:format_sql: true
+      hibernate:use_sql_comments: true
+
   redis:
     host: localhost
     port: 6379
@@ -16,4 +22,12 @@ spring:
 
   cache:
     type: redis
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.cache: TRACE
+    org.springframework.data.redis: DEBUG
+    io.lettuce.core: DEBUG
 
