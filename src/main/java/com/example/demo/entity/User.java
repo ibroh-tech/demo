@@ -37,5 +37,13 @@ public class User implements Serializable {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public Long getId(long id) {
+        return id;
+    }
 }
 
