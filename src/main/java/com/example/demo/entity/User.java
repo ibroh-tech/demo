@@ -46,4 +46,3 @@ public class User implements Serializable {
         return id;
     }
 }
-
