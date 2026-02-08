@@ -10,6 +10,7 @@ import com.example.demo.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.CacheManager;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 
 @SpringBootTest
@@ -18,22 +19,33 @@ class UserServiceRedisTest extends BaseRedisTestContainerConfiguration {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CacheManager cacheManager; // Inject the CacheManager
+
     @MockitoSpyBean
     private UserRepository userRepository;
 
-
     @Test
     void shouldCacheUser() {
+        // 1. Setup user
         User user = new User();
         user.setUsername("redis");
-        user.setEmail("redis@example.com");
+        user.setEmail("re" + System.currentTimeMillis() + "@example.com");
         user.setPassword("redis123");
 
-        userService.saveUser(user);
+        // 2. Save the user
+        User savedUser = userService.saveUser(user);
 
-        userService.getUserById(user.getId());
-        userService.getUserById(user.getId());
+        // 3. Clear the CORRECT cache name
+        cacheManager.getCache("usersById").evict(savedUser.getId());  // Changed from "users" to "usersById"
 
-        verify(userRepository, times(1)).findById(user.getId());
+        // 4. First call: Cache is empty, hits DB
+        userService.getUserById(savedUser.getId());
+
+        // 5. Second call: Data is cached, skips DB
+        userService.getUserById(savedUser.getId());
+
+        // 6. Verify findById was called exactly once
+        verify(userRepository, times(1)).findById(savedUser.getId());
     }
 }

@@ -33,3 +33,6 @@ logging:
     org.springframework.data.redis: DEBUG
     io.lettuce.core: DEBUG
 
+  main:
+    web-application-type: none
+
