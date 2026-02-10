@@ -33,16 +33,10 @@ public class User implements Serializable {
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-    }
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public Long getId(long id) {
-        return id;
     }
 }

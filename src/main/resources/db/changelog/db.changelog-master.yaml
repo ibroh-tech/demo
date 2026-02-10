@@ -3,3 +3,7 @@ databaseChangeLog:
       file: ../changes/create_users_table.sql
       relativeToChangelogFile: true
 
+  - include:
+      file: ../changes/002_insert_into_users.sql
+      relativeToChangelogFile: true
+

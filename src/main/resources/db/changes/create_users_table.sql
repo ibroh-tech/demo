@@ -11,6 +11,3 @@ CREATE TABLE users (
                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- changeset ibrohim:002
-INSERT INTO users (username, email, password)
-VALUES ('admin', 'admin@example.com', '1234');
