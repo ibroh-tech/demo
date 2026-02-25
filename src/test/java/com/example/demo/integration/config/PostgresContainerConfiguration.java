@@ -50,14 +50,28 @@ public class PostgresContainerConfiguration {
 
     @Test
     public void shouldSaveUser() {
-        User user = new User("normaluser","normaluser@gamil.com", "qwertyuio123");
+        User user = new User("test","test@gamil.com", "qwertyuio123");
         User savedUser = userRepository.save(user);
         System.out.println("User saved");
 
 
         assertThat(savedUser.getId()).isNotNull();
-        assertThat(savedUser.getUsername()).isEqualTo("normaluser");
-        assertThat(savedUser.getEmail()).isEqualTo("normaluser@gamil.com");
+        assertThat(savedUser.getUsername()).isEqualTo("test");
+        assertThat(savedUser.getEmail()).isEqualTo("test@gamil.com");
 
+    }
+
+    @Test
+    public void getUser() {
+        // Arrange
+//        User user = new User("adminUser","adminUser@gamil.com", "123456789");
+//        userRepository.save(user);
+
+        // Act
+        User savedUser = userRepository.findByUsername("adminUser").orElse(null);
+
+        // Assert
+        assertThat(savedUser).isNotNull();
+        assertThat(savedUser.getUsername()).isEqualTo("adminUser");
     }
 }

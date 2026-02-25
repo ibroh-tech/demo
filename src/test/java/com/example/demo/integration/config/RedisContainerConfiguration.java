@@ -4,17 +4,14 @@ package com.example.demo.integration.config;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.utility.DockerImageName;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -38,9 +35,9 @@ public class RedisContainerConfiguration {
 
     @Test
     void shouldStoreAndRetrieveValue() {
-        redisTemplate.opsForValue().set("key", "value");
+        redisTemplate.opsForValue().set("key", "someValue");
         String result = redisTemplate.opsForValue().get("key");
 
-        assertEquals("value", result);
+        assertEquals("someValue", result);
     }
 }
